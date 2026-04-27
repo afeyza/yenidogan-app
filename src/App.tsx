@@ -3,6 +3,7 @@ import Layout from './components/layout/Layout';
 import { Home } from './pages/Home';
 import { Favorites } from './pages/Favorites'; 
 import { NameFinder } from './pages/NameFinder';
+import { QuranNames } from './pages/QuranNames';
 import { FavoritesProvider } from './context/FavoritesContext';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="favorites" element={<Favorites />} />
             <Route path="finder" element={<NameFinder />} />
+            <Route path="quran" element={<QuranNames />} />
           </Route>
         </Routes>
       </BrowserRouter>

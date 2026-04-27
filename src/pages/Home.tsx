@@ -64,7 +64,7 @@ export const Home = () => {
           <span className="section-title">Kategorilere göre isimler</span>
         </div>
         <div className="cat-grid">
-          <div className="cat-card" onClick={() => navigate('/finder')}>
+          <div className="cat-card" onClick={() => navigate('/quran')}>
             <div className="cat-icon" style={{ background: '#E8F5E9' }}>📖</div>
             <h4>Kur'an'da geçen</h4>
             <p>Keşfet →</p>
