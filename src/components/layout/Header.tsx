@@ -39,7 +39,6 @@ const Header: React.FC = () => {
   return (
     <div className="header-outer">
       <div className="header">
-        {/* LOGO AREA - Always visible now */}
         <button className="header-btn menu-btn">☰</button>
         <div className="logo">
           <div className="logo-icon">🌸</div>
@@ -49,21 +48,53 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* INLINE SEARCH BAR - Slides but doesn't cover logo */}
+        {/* INLINE SEARCH BAR */}
         <div className={`header-search-wrapper ${isSearchOpen ? 'active' : ''}`}>
-          {isSearchOpen && (
-            <form onSubmit={handleSearchTrigger} className="header-search-form">
-              <input 
-                type="text" 
-                className="header-search-input" 
-                placeholder="İsim ara..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                autoFocus
-              />
-              <button type="submit" className="header-search-submit">Ara</button>
-            </form>
-          )}
+          <div className="header-search-inner-relative">
+            {isSearchOpen && (
+              <form onSubmit={handleSearchTrigger} className="header-search-form">
+                <input 
+                  type="text" 
+                  className="header-search-input" 
+                  placeholder="İsim ara..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                />
+                <button type="submit" className="header-search-submit">Ara</button>
+              </form>
+            )}
+
+            {/* SEARCH RESULTS - Now anchored specifically to the search input wrapper */}
+            {isSearchOpen && submittedQuery.length > 0 && (
+              <div className="search-results-dropdown-inline">
+                <div style={{ padding: '10px 16px', fontSize: '11px', color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>
+                  "{submittedQuery}" için sonuçlar:
+                </div>
+                {filteredResults.length > 0 ? (
+                  filteredResults.map(result => (
+                    <div 
+                      key={result.id} 
+                      className="search-result-item"
+                      onClick={() => console.log("Seçildi:", result.n)}
+                    >
+                      <div>
+                        <div className="sr-name">{result.n}</div>
+                        <div className="sr-meaning">{result.m}</div>
+                      </div>
+                      <span className={`sr-tag ${result.g === 'Kız' ? 'girl' : 'boy'}`}>
+                        {result.g}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="search-result-item" style={{ cursor: 'default', opacity: 0.7 }}>
+                    <div className="sr-meaning">Eşleşen isim bulunamadı.</div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         <button 
@@ -72,36 +103,6 @@ const Header: React.FC = () => {
         >
           {isSearchOpen ? '✕' : '🔍'}
         </button>
-
-        {/* SEARCH RESULTS - Moved inside header to stay aligned with wrapper */}
-        {isSearchOpen && submittedQuery.length > 0 && (
-          <div className="search-results-dropdown">
-            <div style={{ padding: '10px 16px', fontSize: '11px', color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>
-              "{submittedQuery}" için sonuçlar:
-            </div>
-            {filteredResults.length > 0 ? (
-              filteredResults.map(result => (
-                <div 
-                  key={result.id} 
-                  className="search-result-item"
-                  onClick={() => console.log("Seçildi:", result.n)}
-                >
-                  <div>
-                    <div className="sr-name">{result.n}</div>
-                    <div className="sr-meaning">{result.m}</div>
-                  </div>
-                  <span className={`sr-tag ${result.g === 'Kız' ? 'girl' : 'boy'}`}>
-                    {result.g}
-                  </span>
-                </div>
-              ))
-            ) : (
-              <div className="search-result-item" style={{ cursor: 'default', opacity: 0.7 }}>
-                <div className="sr-meaning">Eşleşen isim bulunamadı.</div>
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

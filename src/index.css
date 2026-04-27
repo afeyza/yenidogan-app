@@ -130,7 +130,7 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .header-search-wrapper {
   flex: 0;
   width: 0;
-  overflow: hidden;
+  /* overflow: hidden; */ /* Dropdown'ın görünmesi için burayı açıyoruz */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
@@ -141,11 +141,18 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
   margin-left: 10px;
   margin-right: 10px;
 }
+.header-search-inner-relative {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
 .header-search-form {
   width: 100%;
   display: flex;
   gap: 8px;
   align-items: center;
+  overflow: hidden; /* Inputun kayarak açılma animasyonunu buraya taşıdık */
 }
 .header-search-input {
   flex: 1;
@@ -157,7 +164,7 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
   font-family: inherit;
   font-size: 14px;
   color: var(--text);
-  min-width: 0; /* Inputun taşmasını engeller */
+  min-width: 0;
 }
 .header-search-submit {
   background: var(--purple);
@@ -174,20 +181,20 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
   color: var(--pink) !important;
 }
 
-/* Search results dropdown inside header to match wrapper */
-.search-results-dropdown {
+/* Specific dropdown aligned to the BOX, not the header */
+.search-results-dropdown-inline {
   position: absolute;
-  top: 100%;
-  left: 16px;
-  right: 16px;
+  top: calc(100% + 12px); /* Kutu bitiminden biraz aşağıda başlasın */
+  left: 0;
+  right: 0;
   background: #fff;
   border: 1px solid var(--border);
-  border-top: none;
-  border-radius: 0 0 16px 16px;
-  box-shadow: 0 10px 25px rgba(107, 79, 187, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(107, 79, 187, 0.15);
   z-index: 100;
   max-height: 400px;
   overflow-y: auto;
+  animation: slideDown 0.2s ease-out;
 }
 
 @media (max-width: 480px) {
