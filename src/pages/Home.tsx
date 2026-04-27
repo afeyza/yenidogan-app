@@ -14,9 +14,6 @@ export const Home = () => {
     setCurrentNameIndex((prev) => (prev + 1) % namesData.length);
   };
 
-  const handleAction = (prompt: string) => {
-    console.log("Action Triggered:", prompt);
-  };
 
   return (
     <>
@@ -46,18 +43,18 @@ export const Home = () => {
       </div>
 
       {/* GENDER CARDS */}
-      <div className="gender-cards">
+        <div className="gender-cards">
         <div className="gender-card girl">
           <div className="gender-card-photo ai-bebek ai-kiz"></div>
           <h3>Kız isimleri</h3>
           <p>250+ anlamlı ve güzel isim</p>
-          <button className="gender-card-btn" onClick={() => handleAction('Kız bebek isimleri öner')}>Tümünü Gör →</button>
+          <button className="gender-card-btn" onClick={() => navigate('/finder')}>Kız İsimlerini Gör →</button>
         </div>
         <div className="gender-card boy">
           <div className="gender-card-photo ai-bebek ai-erkek"></div>
           <h3>Erkek isimleri</h3>
           <p>350+ modern ve özel erkek ismi</p>
-          <button className="gender-card-btn" onClick={() => handleAction('Erkek bebek isimleri öner')}>Tümünü Gör →</button>
+          <button className="gender-card-btn" onClick={() => navigate('/finder')}>Erkek İsimlerini Gör →</button>
         </div>
       </div>
 
@@ -67,12 +64,12 @@ export const Home = () => {
           <span className="section-title">Kategorilere göre isimler</span>
         </div>
         <div className="cat-grid">
-          <div className="cat-card" onClick={() => handleAction("Kur'an'da geçen bebek isimleri")}>
+          <div className="cat-card" onClick={() => navigate('/finder')}>
             <div className="cat-icon" style={{ background: '#E8F5E9' }}>📖</div>
             <h4>Kur'an'da geçen</h4>
             <p>Keşfet →</p>
           </div>
-          <div className="cat-card" onClick={() => handleAction('Popüler bebek isimleri')}>
+          <div className="cat-card" onClick={() => navigate('/finder')}>
             <div className="cat-icon" style={{ background: '#FFF8E1' }}>⭐</div>
             <h4>Popüler isimler</h4>
             <p>Keşfet →</p>
@@ -95,21 +92,21 @@ export const Home = () => {
         <div className="guide" style={{ width: '100%' }}>
           <div className="guide-header">
             <span>İSİM REHBERİ</span>
-            <a onClick={() => handleAction('İsim rehberinin tümünü göster')}>TÜMÜ</a>
+            <a onClick={() => navigate('/finder')}>TÜMÜ</a>
           </div>
-          <div className="guide-item" onClick={() => handleAction('Bebek ismi nasıl seçilir?')}>
+          <div className="guide-item" onClick={() => navigate('/finder')}>
             <span>Bebek ismi nasıl seçilir?</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
           </div>
-          <div className="guide-item" onClick={() => handleAction('İsimlerin anlamları neden önemlidir?')}>
+          <div className="guide-item" onClick={() => navigate('/finder')}>
             <span>İsimlerin anlamları neden önemlidir?</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
           </div>
-          <div className="guide-item" onClick={() => handleAction('Modern ve farklı isim önerileri nereden başlar?')}>
+          <div className="guide-item" onClick={() => navigate('/finder')}>
             <span>Modern ve farklı isim önerileri nereden başlar?</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
           </div>
-          <div className="guide-item" onClick={() => handleAction('Nadir isimler: nelere dikkat edilmeli?')}>
+          <div className="guide-item" onClick={() => navigate('/finder')}>
             <span>Nadir isimler: nelere dikkat edilmeli?</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
           </div>
@@ -145,7 +142,7 @@ export const Home = () => {
               >
                 {isFavorite(currentName.id) ? "❤️ Favorilerden çıkar" : "♡ Favorilere ekle"}
               </button>
-              <button className="action-btn action-detail" onClick={() => handleAction(`${currentName.n} ismi hakkında detaylı bilgi ver`)}>Detayı gör</button>
+              <button className="action-btn action-detail" onClick={() => navigate('/finder')}>Detayı gör</button>
             </div>
           </div>
         </div>
@@ -155,14 +152,14 @@ export const Home = () => {
       <div className="section">
         <div className="section-header">
           <span className="section-title">Türkiye'de En Popüler İsimler</span>
-          <span className="see-all" onClick={() => handleAction("Türkiye'de en popüler bebek isimlerini listele")}>Tümünü Gör →</span>
+          <span className="see-all" onClick={() => navigate('/finder')}>Tümünü Gör →</span>
         </div>
         <div className="popular-scroll">
           {popularNameIds.map(id => {
             const popName = namesData.find(n => n.id === id);
             if (!popName) return null;
             return (
-              <div className="pop-card" key={popName.id} onClick={() => handleAction(`${popName.n} ismi anlamı ve kökeni`)}>
+              <div className="pop-card" key={popName.id} onClick={() => navigate('/finder')}>
                 <button 
                   className={`card-fav-btn ${isFavorite(popName.id) ? 'active' : ''}`}
                   onClick={(e) => { e.stopPropagation(); toggleFavorite(popName.id); }}

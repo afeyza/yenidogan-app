@@ -6,18 +6,15 @@ import { Link } from 'react-router-dom';
 export const NameFinder = () => {
   const { toggleFavorite, isFavorite } = useFavorites();
   
-  // States for filters
   const [searchTerm, setSearchTerm] = useState('');
   const [genderFilter, setGenderFilter] = useState<'Hepsi' | 'Kız' | 'Erkek'>('Hepsi');
   const [originFilter, setOriginFilter] = useState<string>('Hepsi');
 
-  // Get unique origins from data for filter
   const origins = useMemo(() => {
     const allOrigins = namesData.map(item => item.t3);
     return ['Hepsi', ...Array.from(new Set(allOrigins))];
   }, []);
 
-  // Filtering logic
   const filteredNames = useMemo(() => {
     return namesData.filter(item => {
       const matchesSearch = 
@@ -32,7 +29,7 @@ export const NameFinder = () => {
   }, [searchTerm, genderFilter, originFilter]);
 
   return (
-    <div className="finder-page">
+    <div className="finder-page" style={{ padding: '24px 16px' }}>
       <div className="fav-header">
         <Link to="/" style={{display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--purple)', textDecoration: 'none', marginBottom: '16px', fontWeight: 600}}>
           ← Ana Sayfaya Dön
@@ -41,8 +38,7 @@ export const NameFinder = () => {
         <p>Aradığınız kriterlere en uygun ismi keşfedin.</p>
       </div>
 
-      {/* FILTER SECTION */}
-      <div className="finder-filters" style={{ background: '#fff', padding: '20px', borderRadius: '20px', border: '1px solid var(--border)', marginBottom: '24px' }}>
+      <div className="finder-filters" style={{ background: '#fff', padding: '20px', borderRadius: '20px', border: '1px solid var(--border)', marginBottom: '24px', marginTop: '16px' }}>
         <div style={{ marginBottom: '16px' }}>
           <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, marginBottom: '8px', color: 'var(--muted)' }}>İSİM VEYA ANLAMDA ARA</label>
           <input 
@@ -88,7 +84,6 @@ export const NameFinder = () => {
         </div>
       </div>
 
-      {/* RESULTS SECTION */}
       <div className="section-header">
         <span className="section-title">Sonuçlar ({filteredNames.length})</span>
       </div>
@@ -109,9 +104,9 @@ export const NameFinder = () => {
                   </button>
                 </div>
                 <div className="name-tags" style={{ marginBottom: '8px' }}>
-                  <span className="tag tag-blue">{item.t1}</span>
-                  <span className="tag tag-pink">{item.t2}</span>
-                  <span className="tag tag-gold">{item.t3}</span>
+                  <span className="tag tag-blue" style={{ background: item.g === 'Kız' ? 'rgba(224,86,123,0.15)' : 'rgba(74,144,217,0.15)', color: item.g === 'Kız' ? 'var(--pink)' : 'var(--blue)' }}>{item.t1}</span>
+                  <span className="tag tag-pink" style={{ background: 'rgba(224,86,123,0.15)', color: 'var(--pink)' }}>{item.t2}</span>
+                  <span className="tag tag-gold" style={{ background: 'rgba(245,166,35,0.15)', color: 'var(--gold)' }}>{item.t3}</span>
                 </div>
                 <p className="fav-desc">{item.m}</p>
               </div>
