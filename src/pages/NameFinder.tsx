@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
+import { Search, ChevronDown, Heart } from 'lucide-react';
 import { namesData } from '../data/namesData';
 import { useFavorites } from '../context/FavoritesContext';
 
@@ -29,7 +30,6 @@ export const NameFinder = () => {
     });
   }, [searchTerm, genderFilter, originFilter]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -43,7 +43,9 @@ export const NameFinder = () => {
   return (
     <div className="finder-page" style={{ padding: '24px 16px' }}>
       <div className="fav-header" style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 900 }}>🔍 İsim Bulucu</h2>
+        <h2 style={{ fontSize: '32px', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <Search size={32} /> İsim Bulucu
+        </h2>
         <p style={{ fontSize: '15px', color: 'var(--muted)', marginTop: '8px' }}>
           Aradığınız kriterlere en uygun ismi keşfedin.
         </p>
@@ -54,7 +56,7 @@ export const NameFinder = () => {
         background: '#fff', 
         padding: '28px', 
         borderRadius: '28px', 
-        boxShadow: '0 15px 35px rgba(107, 79, 187, 0.1)',
+        boxShadow: '0 15px 35px rgba(107, 79, 18, 0.08)',
         marginBottom: '32px',
         border: '1px solid rgba(107, 79, 187, 0.05)'
       }}>
@@ -64,7 +66,9 @@ export const NameFinder = () => {
           </label>
           <div className="modal-search-form" style={{ marginBottom: 0, padding: '6px' }}>
             <div style={{ position: 'relative', flex: 1 }}>
-              <span className="search-icon-inside" style={{ fontSize: '16px' }}>🔍</span>
+              <span className="search-icon-inside" style={{ top: '50%', transform: 'translateY(-50%)' }}>
+                <Search size={18} />
+              </span>
               <input 
                 type="text" 
                 className="header-search-input" 
@@ -120,10 +124,9 @@ export const NameFinder = () => {
               }}
             >
               <span>{originFilter}</span>
-              <span style={{ fontSize: '10px', opacity: 0.6, transform: isOriginOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }}>▼</span>
+              <ChevronDown size={14} style={{ opacity: 0.6, transform: isOriginOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }} />
             </div>
 
-            {/* CUSTOM DROPDOWN LIST */}
             {isOriginOpen && (
               <div style={{ 
                 position: 'absolute',
@@ -158,8 +161,6 @@ export const NameFinder = () => {
                       cursor: 'pointer',
                       transition: '0.15s'
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = originFilter === o ? 'var(--purple-light)' : '#f8f7ff' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = originFilter === o ? 'var(--purple-light)' : 'transparent' }}
                   >
                     {o}
                   </div>
@@ -194,14 +195,14 @@ export const NameFinder = () => {
                   <span className="fav-name" style={{ fontSize: '22px', fontWeight: 900 }}>{item.n}</span>
                   <button 
                     onClick={() => toggleFavorite(item.id)}
-                    style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer' }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0 5px' }}
                   >
-                    {isFavorite(item.id) ? "❤️" : "🤍"}
+                    <Heart size={22} fill={isFavorite(item.id) ? "var(--pink)" : "none"} color={isFavorite(item.id) ? "var(--pink)" : "#ccc"} />
                   </button>
                 </div>
                 <div className="name-tags" style={{ marginBottom: '12px' }}>
                   <span className="tag" style={{ background: item.g === 'Kız' ? 'rgba(224,86,123,0.1)' : 'rgba(74,144,217,0.1)', color: item.g === 'Kız' ? 'var(--pink)' : 'var(--blue)', fontSize: '11px', padding: '5px 12px', fontWeight: 700 }}>{item.t1}</span>
-                  <span className="tag" style={{ background: 'rgba(245,166,35,0.1)', color: 'var(--gold)', fontSize: '11px', padding: '5px 12px', fontWeight: 700, marginLeft: '8px' }}>{item.t3}</span>
+                  <span className="tag" style={{ background: 'rgba(245, 166, 35, 0.1)', color: 'var(--gold)', fontSize: '11px', padding: '5px 12px', fontWeight: 700, marginLeft: '8px' }}>{item.t3}</span>
                 </div>
                 <p className="fav-desc" style={{ fontSize: '12px', color: 'var(--muted)', lineHeight: '1.6' }}>{item.m}</p>
               </div>
@@ -209,7 +210,7 @@ export const NameFinder = () => {
           ))
         ) : (
           <div className="empty-state">
-            <div className="empty-icon" style={{ fontSize: '64px' }}>🔎</div>
+            <Search size={64} style={{ opacity: 0.1, marginBottom: '16px' }} />
             <p style={{ fontWeight: 600 }}>Aradığınız kriterlere uygun isim bulunamadı.</p>
           </div>
         )}

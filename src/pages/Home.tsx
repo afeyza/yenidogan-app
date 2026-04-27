@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Sparkles, BookOpen, Star, Heart, Search, ChevronRight, Baby } from 'lucide-react';
 import { namesData, popularNameIds } from '../data/namesData';
 import { useFavorites } from '../context/FavoritesContext';
 
@@ -14,13 +15,17 @@ export const Home = () => {
     setCurrentNameIndex((prev) => (prev + 1) % namesData.length);
   };
 
-
   return (
     <>
       {/* HERO SECTION */}
       <div className="hero">
-        <div className="hero-baby">👶</div>
-        <div className="hero-badge">🌟 Bebek İsimleri</div>
+        <div className="hero-baby">
+          <Baby size={120} strokeWidth={1} />
+        </div>
+        <div className="hero-badge">
+          <Sparkles size={14} style={{ marginRight: '6px' }} />
+          Bebek İsimleri
+        </div>
         <h1>Bebeğiniz için en <span>doğru ismi</span> bulun</h1>
         <p className="hero-desc">Anlamları, kökenleri ve özellikleriyle kız ve erkek isimlerini keşfedin.</p>
         <button className="hero-cta" onClick={() => navigate('/finder')}>İsim bulucuya git →</button>
@@ -38,7 +43,7 @@ export const Home = () => {
         </div>
         <div className="stat-card">
           <span className="stat-num gold">Her Gün</span>
-          <span className="stat-label">Güncellenen Veritabanı</span>
+          <span className="stat-label">Güncellenmiş</span>
         </div>
       </div>
 
@@ -47,13 +52,13 @@ export const Home = () => {
         <div className="gender-card girl">
           <div className="gender-card-photo ai-bebek ai-kiz"></div>
           <h3>Kız isimleri</h3>
-          <p>250+ anlamlı ve güzel isim</p>
+          <p>Anlamlı ve zarif isimler</p>
           <button className="gender-card-btn" onClick={() => navigate('/names/kiz')}>Kız İsimlerini Gör →</button>
         </div>
         <div className="gender-card boy">
           <div className="gender-card-photo ai-bebek ai-erkek"></div>
           <h3>Erkek isimleri</h3>
-          <p>350+ modern ve özel erkek ismi</p>
+          <p>Güçlü ve modern isimler</p>
           <button className="gender-card-btn" onClick={() => navigate('/names/erkek')}>Erkek İsimlerini Gör →</button>
         </div>
       </div>
@@ -65,24 +70,32 @@ export const Home = () => {
         </div>
         <div className="cat-grid">
           <div className="cat-card" onClick={() => navigate('/quran')}>
-            <div className="cat-icon" style={{ background: '#E8F5E9' }}>📖</div>
+            <div className="cat-icon" style={{ background: '#E8F5E9', color: '#2E7D32' }}>
+              <BookOpen size={24} />
+            </div>
             <h4>Kur'an'da geçen</h4>
-            <p>Keşfet →</p>
+            <p>Keşfet <ChevronRight size={12} /></p>
           </div>
           <div className="cat-card" onClick={() => navigate('/popular')}>
-            <div className="cat-icon" style={{ background: '#FFF8E1' }}>⭐</div>
+            <div className="cat-icon" style={{ background: '#FFF8E1', color: '#F5A623' }}>
+              <Star size={24} />
+            </div>
             <h4>Popüler isimler</h4>
-            <p>Keşfet →</p>
+            <p>Keşfet <ChevronRight size={12} /></p>
           </div>
           <div className="cat-card" onClick={() => navigate('/finder')}>
-            <div className="cat-icon" style={{ background: '#EEE8FF' }}>🔍</div>
+            <div className="cat-icon" style={{ background: '#EEE8FF', color: '#6B4FBB' }}>
+              <Search size={24} />
+            </div>
             <h4>İsim bulucu</h4>
-            <p>Keşfet →</p>
+            <p>Keşfet <ChevronRight size={12} /></p>
           </div>
           <div className="cat-card" onClick={() => navigate('/favorites')}>
-            <div className="cat-icon" style={{ background: '#FFE8EF' }}>❤️</div>
+            <div className="cat-icon" style={{ background: '#FFE8EF', color: '#E0567B' }}>
+              <Heart size={24} />
+            </div>
             <h4>Favorilerim</h4>
-            <p>Keşfet →</p>
+            <p>Keşfet <ChevronRight size={12} /></p>
           </div>
         </div>
       </div>
@@ -96,19 +109,19 @@ export const Home = () => {
           </div>
           <div className="guide-item" onClick={() => navigate('/finder')}>
             <span>Bebek ismi nasıl seçilir?</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            <ChevronRight size={16} />
           </div>
           <div className="guide-item" onClick={() => navigate('/finder')}>
             <span>İsimlerin anlamları neden önemlidir?</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            <ChevronRight size={16} />
           </div>
           <div className="guide-item" onClick={() => navigate('/finder')}>
-            <span>Modern ve farklı isim önerileri nereden başlar?</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            <span>Modern öneriler nereden başlar?</span>
+            <ChevronRight size={16} />
           </div>
           <div className="guide-item" onClick={() => navigate('/finder')}>
             <span>Nadir isimler: nelere dikkat edilmeli?</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            <ChevronRight size={16} />
           </div>
         </div>
 
@@ -140,7 +153,7 @@ export const Home = () => {
                   borderColor: isFavorite(currentName.id) ? "var(--pink)" : "rgba(255,255,255,.25)"
                 }}
               >
-                {isFavorite(currentName.id) ? "❤️ Favorilerden çıkar" : "♡ Favorilere ekle"}
+                {isFavorite(currentName.id) ? <><Heart size={16} fill="white" style={{ marginRight: '8px' }} /> Favorilerden çıkar</> : <><Heart size={16} style={{ marginRight: '8px' }} /> Favorilere ekle</>}
               </button>
               <button className="action-btn action-detail" onClick={() => navigate('/finder')}>Daha fazla isim keşfet →</button>
             </div>
@@ -151,7 +164,7 @@ export const Home = () => {
       {/* POPULAR NAMES */}
       <div className="section">
         <div className="section-header">
-          <span className="section-title">Türkiye'de En Popüler İsimler</span>
+          <span className="section-title">En Popüler İsimler</span>
           <span className="see-all" onClick={() => navigate('/popular')}>Tümünü Gör →</span>
         </div>
         <div className="popular-scroll">
@@ -164,7 +177,7 @@ export const Home = () => {
                   className={`card-fav-btn ${isFavorite(popName.id) ? 'active' : ''}`}
                   onClick={(e) => { e.stopPropagation(); toggleFavorite(popName.id); }}
                 >
-                  {isFavorite(popName.id) ? "❤️" : "🤍"}
+                  <Heart size={14} fill={isFavorite(popName.id) ? "var(--pink)" : "none"} color={isFavorite(popName.id) ? "var(--pink)" : "currentColor"} />
                 </button>
                 <div className={`pop-card-img ai-bebek ${popName.g === 'Kız' ? 'ai-kiz' : 'ai-erkek'}`}></div>
                 <div className="pop-card-body">

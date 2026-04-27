@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { namesData } from '../data/namesData';
 import { useFavorites } from '../context/FavoritesContext';
+import { BookOpen, Heart, Search } from 'lucide-react';
 
 export const QuranNames = () => {
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -17,13 +18,14 @@ export const QuranNames = () => {
   return (
     <div className="fav-page" style={{ padding: '24px 16px' }}>
       <div className="fav-header" style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 900 }}>📖 Kur'an'da Geçenler</h2>
+        <h2 style={{ fontSize: '32px', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <BookOpen size={32} /> Kur'an'da Geçenler
+        </h2>
         <p style={{ fontSize: '15px', color: 'var(--muted)', marginTop: '8px' }}>
           Kur'an-ı Kerim'de yer alan, anlamlarıyla ilham veren en güzel bebek isimleri.
         </p>
       </div>
 
-      {/* GENDER FILTER BUTTONS (COMPACT) */}
       <div style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', gap: '4px', background: '#f0edfa', padding: '4px', borderRadius: '12px', maxWidth: '240px' }}>
           {['Hepsi', 'Kız', 'Erkek'].map(g => (
@@ -68,9 +70,9 @@ export const QuranNames = () => {
                   <span className="fav-name" style={{ fontSize: '22px', fontWeight: 900 }}>{item.n}</span>
                   <button 
                     onClick={() => toggleFavorite(item.id)}
-                    style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer' }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0 5px' }}
                   >
-                    {isFavorite(item.id) ? "❤️" : "🤍"}
+                    <Heart size={22} fill={isFavorite(item.id) ? "var(--pink)" : "none"} color={isFavorite(item.id) ? "var(--pink)" : "#ccc"} />
                   </button>
                 </div>
                 <div className="name-tags" style={{ marginBottom: '12px' }}>
@@ -82,8 +84,8 @@ export const QuranNames = () => {
             </div>
           ))
         ) : (
-          <div className="empty-state" style={{ padding: '40px 20px' }}>
-            <div className="empty-icon" style={{ fontSize: '64px' }}>🔎</div>
+          <div className="empty-state">
+            <Search size={64} style={{ opacity: 0.1, marginBottom: '16px' }} />
             <p style={{ fontWeight: 600 }}>Aradığınız kriterde isim bulunamadı.</p>
           </div>
         )}

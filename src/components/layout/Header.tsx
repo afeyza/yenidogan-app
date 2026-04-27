@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Menu, ArrowLeft, Search, X } from 'lucide-react';
 import { namesData } from '../../data/namesData';
 
 const Header: React.FC = () => {
@@ -45,15 +46,19 @@ const Header: React.FC = () => {
         <div className="header">
           {/* LEFT BUTTON */}
           {isHomePage ? (
-            <button className="header-btn menu-btn">☰</button>
+            <button className="header-btn menu-btn">
+              <Menu size={20} />
+            </button>
           ) : (
             <button className="header-btn back-btn" onClick={() => navigate('/')}>
-              ←
+              <ArrowLeft size={20} />
             </button>
           )}
 
           <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-            <div className="logo-icon">🌸</div>
+            <div className="logo-icon">
+              <span style={{ fontSize: '18px' }}>✨</span>
+            </div>
             <div className="logo-text-group">
               <span className="logo-text">yenidoğan.net</span>
               <span className="logo-sub">En güzel başlangıç...</span>
@@ -65,7 +70,7 @@ const Header: React.FC = () => {
             className="header-btn search-btn"
             onClick={() => setIsSearchOpen(true)}
           >
-            🔍
+            <Search size={20} />
           </button>
         </div>
       </div>
@@ -76,12 +81,16 @@ const Header: React.FC = () => {
           <div className="search-modal-content">
             <div className="search-modal-header">
               <h3>İsimlerde Ara</h3>
-              <button className="modal-close-btn" onClick={closeSearch}>✕</button>
+              <button className="modal-close-btn" onClick={closeSearch}>
+                <X size={18} />
+              </button>
             </div>
             
             <form onSubmit={handleSearchTrigger} className="modal-search-form">
               <div style={{ position: 'relative', flex: 1 }}>
-                <span className="search-icon-inside">🔍</span>
+                <span className="search-icon-inside">
+                  <Search size={16} />
+                </span>
                 <input 
                   type="text" 
                   className="header-search-input" 
@@ -123,13 +132,15 @@ const Header: React.FC = () => {
                     </div>
                   ) : (
                     <div className="empty-search">
-                      😔 Aradığınız isim bulunamadı.
+                      <Search size={40} style={{ opacity: 0.1, marginBottom: '16px' }} />
+                      <p>Aradığınız isim bulunamadı.</p>
                     </div>
                   )}
                 </>
               ) : (
                 <div className="search-hint">
-                  Aramanızı yapın, en güzel bebek isimlerini listeleyelim. ✨
+                  <Search size={40} style={{ opacity: 0.1, marginBottom: '16px' }} />
+                  <p>Aramanızı yapın, en güzel bebek isimlerini listeleyelim. ✨</p>
                 </div>
               )}
             </div>

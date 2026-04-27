@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { namesData } from '../data/namesData';
 import { useFavorites } from '../context/FavoritesContext';
+import { Star, Heart } from 'lucide-react';
 
 export const PopularNames = () => {
   const { toggleFavorite, isFavorite } = useFavorites();
 
-  // Şimdilik bütün isimleri listeler, ileride istatistiklere göre sıralanabilir.
   const listNames = useMemo(() => {
     return [...namesData].sort((a, b) => a.n.localeCompare(b.n));
   }, []);
@@ -13,7 +13,9 @@ export const PopularNames = () => {
   return (
     <div className="fav-page" style={{ padding: '24px 16px' }}>
       <div className="fav-header" style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 900 }}>⭐ Popüler İsimler</h2>
+        <h2 style={{ fontSize: '32px', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <Star size={32} fill="var(--gold)" color="var(--gold)" /> Popüler İsimler
+        </h2>
         <p style={{ fontSize: '15px', color: 'var(--muted)', marginTop: '8px' }}>
           Türkiye'de en çok tercih edilen ve sevilen bebek isimleri listesi.
         </p>
@@ -42,9 +44,9 @@ export const PopularNames = () => {
                 <span className="fav-name" style={{ fontSize: '22px', fontWeight: 900 }}>{item.n}</span>
                 <button 
                   onClick={() => toggleFavorite(item.id)}
-                  style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer' }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0 5px' }}
                 >
-                  {isFavorite(item.id) ? "❤️" : "🤍"}
+                  <Heart size={22} fill={isFavorite(item.id) ? "var(--pink)" : "none"} color={isFavorite(item.id) ? "var(--pink)" : "#ccc"} />
                 </button>
               </div>
               <div className="name-tags" style={{ marginBottom: '12px' }}>

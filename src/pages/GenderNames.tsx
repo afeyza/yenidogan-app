@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { namesData } from '../data/namesData';
 import { useFavorites } from '../context/FavoritesContext';
+import { User, Heart } from 'lucide-react';
 
 export const GenderNames = () => {
   const { gender } = useParams<{ gender: string }>();
-  const navigate = useNavigate();
   const { toggleFavorite, isFavorite } = useFavorites();
 
   const isGirl = gender === 'kiz';
@@ -18,8 +18,8 @@ export const GenderNames = () => {
   return (
     <div className="fav-page" style={{ padding: '24px 16px' }}>
       <div className="fav-header" style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 900 }}>
-          {isGirl ? '🎀' : '👔'} {displayGender} İsimleri
+        <h2 style={{ fontSize: '32px', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <User size={32} color={isGirl ? 'var(--pink)' : 'var(--blue)'} /> {displayGender} İsimleri
         </h2>
         <p style={{ fontSize: '15px', color: 'var(--muted)', marginTop: '8px' }}>
           En popüler ve anlamlı {displayGender.toLowerCase()} bebek isimleri listesi.
@@ -49,9 +49,9 @@ export const GenderNames = () => {
                 <span className="fav-name" style={{ fontSize: '22px', fontWeight: 900 }}>{item.n}</span>
                 <button 
                   onClick={() => toggleFavorite(item.id)}
-                  style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer' }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0 5px' }}
                 >
-                  {isFavorite(item.id) ? "❤️" : "🤍"}
+                  <Heart size={22} fill={isFavorite(item.id) ? "var(--pink)" : "none"} color={isFavorite(item.id) ? "var(--pink)" : "#ccc"} />
                 </button>
               </div>
               <div className="name-tags" style={{ marginBottom: '12px' }}>
