@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --purple:#6B4FBB;--purple-light:#EEE8FF;--purple-mid:#8B6FD4;
@@ -12,7 +12,7 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99}
 .logo{display:flex;align-items:center;gap:8px}
 .logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--purple),var(--pink));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
-.logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--purple)}
+.logo-text{font-size:16px;font-weight:900;color:var(--purple)}
 .logo-sub{font-size:10px;color:var(--muted);display:block;margin-top:-2px}
 .header-btn{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
 .menu-btn{background:var(--purple)}
@@ -21,7 +21,7 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .hero{background:linear-gradient(160deg,#FFF0F5 0%,#EEE8FF 60%,#E8F4FF 100%);padding:28px 20px 32px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;right:-20px;top:-20px;width:140px;height:140px;background:radial-gradient(circle,rgba(107,79,187,0.12) 0%,transparent 70%);border-radius:50%}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--pink-light);color:var(--pink);font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.5px}
-.hero h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;line-height:1.15;color:var(--text);margin-bottom:12px}
+.hero h1{font-size:30px;font-weight:900;line-height:1.15;color:var(--text);margin-bottom:12px}
 .hero h1 span{color:var(--purple)}
 .hero-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px;max-width:280px}
 .hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;padding:13px 22px;border-radius:14px;font-size:14px;font-weight:600;border:none;cursor:pointer;text-decoration:none}
@@ -51,7 +51,7 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
   border: 2px solid rgba(255, 255, 255, 0.7);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
-.gender-card h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.gender-card h3{font-size:15px;font-weight:700;margin-bottom:3px}
 .gender-card.girl h3{color:var(--pink)}
 .gender-card.boy h3{color:var(--blue)}
 .gender-card p{font-size:11px;color:var(--muted);margin-bottom:10px}
@@ -88,7 +88,7 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .new-btn:hover{background:rgba(255,255,255,.3)}
 .name-card-inner{background:rgba(255,255,255,.12);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:stretch}
 .name-info{flex:1}
-.name-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:6px}
+.name-title{font-size:26px;font-weight:900;color:#fff;margin-bottom:6px}
 .name-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
 .tag{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px}
 .tag-blue{background:rgba(74,144,217,.35);color:#BFE0FF}
@@ -106,7 +106,7 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .pop-card{min-width:140px;background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;cursor:pointer;flex-shrink:0}
 .pop-card-img{height:120px;background-size:cover;background-position:center;background-color:#eee}
 .pop-card-body{padding:10px}
-.pop-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--purple)}
+.pop-name{font-size:15px;font-weight:700;color:var(--purple)}
 .pop-gender{font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--muted);margin-bottom:4px}
 .pop-desc{font-size:10px;color:var(--muted);line-height:1.4}
 
