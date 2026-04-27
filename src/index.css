@@ -87,7 +87,22 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .random-label{color:rgba(255,255,255,.75);font-size:11px;font-weight:700;letter-spacing:.8px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .new-btn{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer}
 .new-btn:hover{background:rgba(255,255,255,.3)}
-.name-card-inner{background:rgba(255,255,255,.12);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:stretch}
+.name-card-inner{
+  background:rgba(255,255,255,.12);
+  border-radius:14px;
+  padding:14px;
+  display:flex;
+  gap:12px;
+  align-items:stretch;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.name-card-inner:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
 .name-info{flex:1}
 .name-title{font-size:26px;font-weight:900;color:#fff;margin-bottom:6px}
 .name-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}

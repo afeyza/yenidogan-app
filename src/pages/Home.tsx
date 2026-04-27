@@ -119,7 +119,7 @@ export const Home = () => {
               RASTGELE İSİM KEŞFET
               <button className="new-btn" onClick={handleNewName}>Yeni isim</button>
             </div>
-            <div className="name-card-inner">
+            <div className="name-card-inner" onClick={() => console.log('İsim detayı yakında!')} style={{ cursor: 'pointer' }}>
               <div className="name-info">
                 <div className="name-title">{currentName.n}</div>
                 <div className="name-tags">
@@ -142,7 +142,7 @@ export const Home = () => {
               >
                 {isFavorite(currentName.id) ? "❤️ Favorilerden çıkar" : "♡ Favorilere ekle"}
               </button>
-              <button className="action-btn action-detail" onClick={() => navigate('/finder')}>Detayı gör</button>
+              <button className="action-btn action-detail" onClick={() => navigate('/finder')}>Daha fazla isim keşfet →</button>
             </div>
           </div>
         </div>
