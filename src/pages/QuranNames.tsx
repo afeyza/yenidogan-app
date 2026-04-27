@@ -14,7 +14,7 @@ export const QuranNames = () => {
       <div className="fav-header" style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '32px', fontWeight: 900 }}>📖 Kur'an'da Geçenler</h2>
         <p style={{ fontSize: '15px', color: 'var(--muted)', marginTop: '8px' }}>
-          Kur'an-ı Kerim'de yer alan anlamlı ve kutsal bebek isimleri.
+          Kur'an-ı Kerim'de yer alan, anlamlarıyla ilham veren en güzel bebek isimleri.
         </p>
       </div>
 
