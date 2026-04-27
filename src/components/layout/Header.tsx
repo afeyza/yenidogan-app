@@ -4,23 +4,36 @@ import { namesData } from '../../data/namesData';
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [submittedQuery, setSubmittedQuery] = useState('');
 
-  // Arama filtresi: İsim, anlam veya köken (t3) içinde arama yapar
+  // Arama filtresi: Sadece 'Ara' butonuna basıldığında (submittedQuery güncellendiğinde) çalışır
   const filteredResults = useMemo(() => {
-    if (searchQuery.trim().length < 2) return [];
+    if (submittedQuery.trim().length === 0) return [];
     
-    const query = searchQuery.toLowerCase().trim();
+    const query = submittedQuery.toLowerCase().trim();
     return namesData.filter(item => 
       item.n.toLowerCase().includes(query) || 
       item.m.toLowerCase().includes(query) ||
       item.t3.toLowerCase().includes(query)
-    ).slice(0, 6); // Maksimum 6 sonuç gösterelim
-  }, [searchQuery]);
+    ).sort((a, b) => {
+      // İsmi tam eşleşenleri veya isimle başlayanları öne çıkaralım
+      const aName = a.n.toLowerCase();
+      const bName = b.n.toLowerCase();
+      const aStarts = aName.startsWith(query);
+      const bStarts = bName.startsWith(query);
+      if (aStarts && !bStarts) return -1;
+      if (!aStarts && bStarts) return 1;
+      return 0;
+    }).slice(0, 10); // Daha fazla sonuç gösterebiliriz artık
+  }, [submittedQuery]);
+
+  const handleSearchTrigger = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setSubmittedQuery(searchQuery);
+  };
 
   const handleResultClick = (name: string) => {
     console.log("Arama sonucuna tıklandı:", name);
-    // Şimdilik sadece tıklama efekti, ilerde detay sayfasına yönlendirebiliriz
-    // setIsSearchOpen(false); // Opsiyonel: seçince arama kapansın mı?
   };
 
   return (
@@ -38,29 +51,44 @@ const Header: React.FC = () => {
           className="header-btn search-btn"
           onClick={() => {
             setIsSearchOpen(!isSearchOpen);
-            if (!isSearchOpen) setSearchQuery(''); // Açılırken temizle
+            if (!isSearchOpen) {
+              setSearchQuery('');
+              setSubmittedQuery('');
+            }
           }}
         >
-          🔍
+          {isSearchOpen ? '✕' : '🔍'}
         </button>
       </div>
 
       {/* SEARCH OVERLAY */}
       <div className={`search-container ${isSearchOpen ? 'active' : ''}`}>
-        <div className="search-input-wrapper">
-          <span className="search-icon-inside">🔍</span>
-          <input 
-            type="text" 
-            className="search-input" 
-            placeholder="İsim, anlam veya köken ara..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            autoFocus={isSearchOpen}
-          />
-        </div>
+        <form className="search-input-wrapper" onSubmit={handleSearchTrigger} style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ position: 'relative', flex: 1 }}>
+            <span className="search-icon-inside">🔍</span>
+            <input 
+              type="text" 
+              className="search-input" 
+              placeholder="İsim, anlam veya köken yazın..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              autoFocus={isSearchOpen}
+            />
+          </div>
+          <button 
+            type="submit"
+            className="hero-cta" 
+            style={{ padding: '0 20px', borderRadius: '12px', fontSize: '13px', whiteSpace: 'nowrap' }}
+          >
+            Ara
+          </button>
+        </form>
         
-        {searchQuery.trim().length >= 2 && (
+        {submittedQuery.length > 0 && (
           <div className="search-results" style={{ display: 'block' }}>
+            <div style={{ padding: '10px 16px', fontSize: '11px', color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>
+              "{submittedQuery}" için sonuçlar:
+            </div>
             {filteredResults.length > 0 ? (
               filteredResults.map(result => (
                 <div 
