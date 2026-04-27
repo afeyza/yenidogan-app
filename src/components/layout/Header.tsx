@@ -6,16 +6,16 @@ import { namesData } from '../../data/namesData';
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [submittedQuery, setSubmittedQuery] = useState('');
   
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
   const filteredResults = useMemo(() => {
-    if (submittedQuery.trim().length === 0) return [];
+    // Arama kutusu 1 karakter bile olsa sonuçları hemen göster (Live Search)
+    if (searchQuery.trim().length < 1) return [];
     
-    const query = submittedQuery.toLowerCase().trim();
+    const query = searchQuery.toLowerCase().trim();
     return namesData.filter(item => 
       item.n.toLowerCase().includes(query)
     ).sort((a, b) => {
@@ -27,17 +27,16 @@ const Header: React.FC = () => {
       if (!aStarts && bStarts) return 1;
       return 0;
     }).slice(0, 10);
-  }, [submittedQuery]);
+  }, [searchQuery]);
 
-  const handleSearchTrigger = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    setSubmittedQuery(searchQuery);
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Eğer sonuçlar zaten canlı geliyorsa enter'a basınca ilk sonuca gidilebilir veya sadece kapatılabilir
   };
 
   const closeSearch = () => {
     setIsSearchOpen(false);
     setSearchQuery('');
-    setSubmittedQuery('');
   };
 
   return (
@@ -86,7 +85,7 @@ const Header: React.FC = () => {
               </button>
             </div>
             
-            <form onSubmit={handleSearchTrigger} className="modal-search-form">
+            <form onSubmit={handleSearchSubmit} className="modal-search-form">
               <div style={{ position: 'relative', flex: 1 }}>
                 <span className="search-icon-inside">
                   <Search size={16} />
@@ -104,10 +103,10 @@ const Header: React.FC = () => {
             </form>
 
             <div className="modal-results-area">
-              {submittedQuery.length > 0 ? (
+              {searchQuery.length >= 1 ? (
                 <>
                   <div style={{ padding: '12px 0', fontSize: '12px', color: 'var(--muted)' }}>
-                    "{submittedQuery}" için sonuçlar:
+                    "{searchQuery}" için sonuçlar:
                   </div>
                   {filteredResults.length > 0 ? (
                     <div className="modal-scroll-list">
