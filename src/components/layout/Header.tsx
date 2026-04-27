@@ -37,30 +37,26 @@ const Header: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="header-outer">
       <div className="header">
-        {/* LOGO AREA - Hides when search is open on mobile */}
-        {!isSearchOpen && (
-          <>
-            <button className="header-btn menu-btn">☰</button>
-            <div className="logo">
-              <div className="logo-icon">🌸</div>
-              <div>
-                <span className="logo-text">yenidoğan.net</span>
-                <span className="logo-sub">En güzel başlangıç...</span>
-              </div>
-            </div>
-          </>
-        )}
+        {/* LOGO AREA - Always visible now */}
+        <button className="header-btn menu-btn">☰</button>
+        <div className="logo">
+          <div className="logo-icon">🌸</div>
+          <div className="logo-text-group">
+            <span className="logo-text">yenidoğan.net</span>
+            <span className="logo-sub">En güzel başlangıç...</span>
+          </div>
+        </div>
 
-        {/* INLINE SEARCH BAR - Slides from right to left */}
+        {/* INLINE SEARCH BAR - Slides but doesn't cover logo */}
         <div className={`header-search-wrapper ${isSearchOpen ? 'active' : ''}`}>
           {isSearchOpen && (
             <form onSubmit={handleSearchTrigger} className="header-search-form">
               <input 
                 type="text" 
                 className="header-search-input" 
-                placeholder="İsim veya anlam ara..."
+                placeholder="İsim ara..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 autoFocus
@@ -76,38 +72,38 @@ const Header: React.FC = () => {
         >
           {isSearchOpen ? '✕' : '🔍'}
         </button>
-      </div>
 
-      {/* SEARCH RESULTS - Stays as a dropdown beneath the header */}
-      {isSearchOpen && submittedQuery.length > 0 && (
-        <div className="search-results" style={{ display: 'block', position: 'fixed', top: '61px', left: 0, right: 0, zIndex: 97, margin: '0 16px', borderRadius: '0 0 16px 16px' }}>
-          <div style={{ padding: '10px 16px', fontSize: '11px', color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>
-            "{submittedQuery}" için sonuçlar:
-          </div>
-          {filteredResults.length > 0 ? (
-            filteredResults.map(result => (
-              <div 
-                key={result.id} 
-                className="search-result-item"
-                onClick={() => console.log("Seçildi:", result.n)}
-              >
-                <div>
-                  <div className="sr-name">{result.n}</div>
-                  <div className="sr-meaning">{result.m}</div>
-                </div>
-                <span className={`sr-tag ${result.g === 'Kız' ? 'girl' : 'boy'}`}>
-                  {result.g}
-                </span>
-              </div>
-            ))
-          ) : (
-            <div className="search-result-item" style={{ cursor: 'default', opacity: 0.7 }}>
-              <div className="sr-meaning">Eşleşen isim bulunamadı.</div>
+        {/* SEARCH RESULTS - Moved inside header to stay aligned with wrapper */}
+        {isSearchOpen && submittedQuery.length > 0 && (
+          <div className="search-results-dropdown">
+            <div style={{ padding: '10px 16px', fontSize: '11px', color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>
+              "{submittedQuery}" için sonuçlar:
             </div>
-          )}
-        </div>
-      )}
-    </>
+            {filteredResults.length > 0 ? (
+              filteredResults.map(result => (
+                <div 
+                  key={result.id} 
+                  className="search-result-item"
+                  onClick={() => console.log("Seçildi:", result.n)}
+                >
+                  <div>
+                    <div className="sr-name">{result.n}</div>
+                    <div className="sr-meaning">{result.m}</div>
+                  </div>
+                  <span className={`sr-tag ${result.g === 'Kız' ? 'girl' : 'boy'}`}>
+                    {result.g}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <div className="search-result-item" style={{ cursor: 'default', opacity: 0.7 }}>
+                <div className="sr-meaning">Eşleşen isim bulunamadı.</div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

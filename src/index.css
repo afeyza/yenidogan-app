@@ -157,6 +157,7 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
   font-family: inherit;
   font-size: 14px;
   color: var(--text);
+  min-width: 0; /* Inputun taşmasını engeller */
 }
 .header-search-submit {
   background: var(--purple);
@@ -172,15 +173,32 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
   background: var(--pink-light) !important;
   color: var(--pink) !important;
 }
-/* Mock Search Results */
-.search-results {
-  margin-top: 12px;
-  display: none;
+
+/* Search results dropdown inside header to match wrapper */
+.search-results-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 16px;
+  right: 16px;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(107, 79, 187, 0.08);
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 10px 25px rgba(107, 79, 187, 0.12);
+  z-index: 100;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+  .header-search-wrapper.active ~ .logo .logo-text-group {
+    display: none; /* Mobilde çok daralırsa logonun yazısını gizle ama ikon kalsın */
+  }
+}
+
+/* Mock Search Results */
+.search-results {
+  display: none; /* Old class cleanup */
 }
 .search-result-item {
   padding: 12px 16px;
