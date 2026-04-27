@@ -23,17 +23,17 @@ export const QuranNames = () => {
         </p>
       </div>
 
-      {/* GENDER FILTER BUTTONS */}
-      <div style={{ marginBottom: '32px' }}>
-        <div style={{ display: 'flex', gap: '6px', background: '#f0edfa', padding: '6px', borderRadius: '18px', maxWidth: '320px' }}>
+      {/* GENDER FILTER BUTTONS (COMPACT) */}
+      <div style={{ marginBottom: '24px' }}>
+        <div style={{ display: 'flex', gap: '4px', background: '#f0edfa', padding: '4px', borderRadius: '12px', maxWidth: '240px' }}>
           {['Hepsi', 'Kız', 'Erkek'].map(g => (
             <button
               key={g}
               onClick={() => setGenderFilter(g as any)}
               style={{
-                flex: 1, padding: '12px', borderRadius: '14px', border: 'none', fontSize: '14px', fontWeight: 700, cursor: 'pointer',
+                flex: 1, padding: '7px 10px', borderRadius: '9px', border: 'none', fontSize: '12px', fontWeight: 700, cursor: 'pointer',
                 background: genderFilter === g ? '#fff' : 'transparent',
-                boxShadow: genderFilter === g ? '0 4px 12px rgba(107, 79, 187, 0.12)' : 'none',
+                boxShadow: genderFilter === g ? '0 3px 8px rgba(107, 79, 187, 0.08)' : 'none',
                 color: genderFilter === g ? 'var(--purple)' : 'var(--muted)',
                 transition: 'all 0.2s'
               }}
