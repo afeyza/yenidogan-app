@@ -1,20 +1,7 @@
-import { useState } from 'react';
-
-// Şimdilik arayüzü görmek için sahte (mock) veri kullanıyoruz.
-// İleride burayı Context API veya Global State (Zustand/Redux) ile besleyeceğiz.
-const initialFavorites = [
-  { id: 1, n: "Aylin", g: "Kız", m: "Ayın etrafını saran hale anlamına gelir. Türkçe kökenli, şiirsel ve zarif bir isimdir." },
-  { id: 2, n: "Miraç", g: "Erkek", m: "Hz. Muhammed'in göğe yükselişini ifade eden Arapça kökenli, maneviyatı yüksek bir isimdir." },
-  { id: 3, n: "Defne", g: "Kız", m: "Defne bitkisinin adından gelen, zafer ve şeref simgesi olan, doğa temalı güzel bir isimdir." }
-];
+import { useFavorites } from '../context/FavoritesContext';
 
 export const Favorites = () => {
-  const [favorites, setFavorites] = useState(initialFavorites);
-
-  // Favorilerden silme fonksiyonu
-  const handleRemove = (id: number) => {
-    setFavorites(favorites.filter(fav => fav.id !== id));
-  };
+  const { favorites, toggleFavorite } = useFavorites();
 
   return (
     <div className="fav-page">
@@ -40,7 +27,7 @@ export const Favorites = () => {
 
               <button 
                 className="remove-fav-btn" 
-                onClick={() => handleRemove(fav.id)}
+                onClick={() => toggleFavorite(fav.id)}
                 title="Favorilerden Çıkar"
               >
                 ✖

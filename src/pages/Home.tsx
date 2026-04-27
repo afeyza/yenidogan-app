@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const namesData = [
-  { n: "Aylin", t1: "Kız ismi", t2: "Popüler", t3: "Türkçe", m: "Ayın etrafını saran hale anlamına gelir. Türkçe kökenli, şiirsel bir isimdir." },
-  { n: "Miraç", t1: "Erkek ismi", t2: "Dini", t3: "Arapça", m: "Hz. Muhammed'in göğe yükselişini ifade eden Arapça kökenli bir isimdir." },
-  { n: "Defne", t1: "Kız ismi", t2: "Doğa", t3: "Türkçe", m: "Defne bitkisinin adından gelen, zafer ve şeref simgesi olan güzel bir isimdir." },
-  { n: "Kaan", t1: "Erkek ismi", t2: "Güçlü", t3: "Türkçe", m: "Hükümdar, han anlamına gelen Türkçe kökenli güçlü bir isimdir." },
-  { n: "İrem", t1: "Kız ismi", t2: "Popüler", t3: "Arapça", m: "Cennet bahçesi anlamına gelen, Arapça kökenli hoş bir isimdir." },
-  { n: "Alp", t1: "Erkek ismi", t2: "Nadir", t3: "Türkçe", m: "Yiğit, cesur, kahraman anlamına gelen saf Türkçe bir isimdir." },
-  { n: "Nisan", t1: "Kız ismi", t2: "Mevsim", t3: "Türkçe", m: "İlkbaharın güzel ayı, yağmur ve tazelik simgesi bir isimdir." },
-];
+import { namesData, popularNameIds } from '../data/namesData';
+import { useFavorites } from '../context/FavoritesContext';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { toggleFavorite, isFavorite } = useFavorites();
+  
   const [currentNameIndex, setCurrentNameIndex] = useState(0);
   const currentName = namesData[currentNameIndex];
 
@@ -141,7 +135,16 @@ export const Home = () => {
               <div className={`baby-img-placeholder ai-bebek ${currentName.t1 === 'Kız ismi' ? 'ai-kiz' : 'ai-erkek'}`}></div>
             </div>
             <div className="name-actions">
-              <button className="action-btn action-fav">♡ Favorilere ekle</button>
+              <button 
+                className="action-btn action-fav"
+                onClick={() => toggleFavorite(currentName.id)}
+                style={{ 
+                  background: isFavorite(currentName.id) ? "var(--pink)" : "rgba(255,255,255,.15)",
+                  borderColor: isFavorite(currentName.id) ? "var(--pink)" : "rgba(255,255,255,.25)"
+                }}
+              >
+                {isFavorite(currentName.id) ? "❤️ Favorilerden çıkar" : "♡ Favorilere ekle"}
+              </button>
               <button className="action-btn action-detail" onClick={() => handleAction(`${currentName.n} ismi hakkında detaylı bilgi ver`)}>Detayı gör</button>
             </div>
           </div>
@@ -155,38 +158,26 @@ export const Home = () => {
           <span className="see-all" onClick={() => handleAction("Türkiye'de en popüler bebek isimlerini listele")}>Tümünü Gör →</span>
         </div>
         <div className="popular-scroll">
-          <div className="pop-card" onClick={() => handleAction('Efe ismi anlamı ve kökeni')}>
-            <div className="pop-card-img ai-bebek ai-erkek"></div>
-            <div className="pop-card-body">
-              <div className="pop-gender">ERKEK</div>
-              <div className="pop-name">Efe</div>
-              <div className="pop-desc">Ege bölgesinde yiğit, kabadayı anlamında...</div>
-            </div>
-          </div>
-          <div className="pop-card" onClick={() => handleAction('Berkay ismi anlamı ve kökeni')}>
-            <div className="pop-card-img ai-bebek ai-erkek"></div>
-            <div className="pop-card-body">
-              <div className="pop-gender">ERKEK</div>
-              <div className="pop-name">Berkay</div>
-              <div className="pop-desc">Berkay, Arapça kökenli sağlam ve güçlü anlamı...</div>
-            </div>
-          </div>
-          <div className="pop-card" onClick={() => handleAction('Zeynep ismi anlamı ve kökeni')}>
-            <div className="pop-card-img ai-bebek ai-kiz"></div>
-            <div className="pop-card-body">
-              <div className="pop-gender">KIZ</div>
-              <div className="pop-name">Zeynep</div>
-              <div className="pop-desc">Güzel kokulu çiçek, babanın süsü anlamında...</div>
-            </div>
-          </div>
-          <div className="pop-card" onClick={() => handleAction('Yusuf ismi anlamı ve kökeni')}>
-            <div className="pop-card-img ai-bebek ai-erkek"></div>
-            <div className="pop-card-body">
-              <div className="pop-gender">ERKEK</div>
-              <div className="pop-name">Yusuf</div>
-              <div className="pop-desc">İbranice kökenli, Allah artırsın anlamında...</div>
-            </div>
-          </div>
+          {popularNameIds.map(id => {
+            const popName = namesData.find(n => n.id === id);
+            if (!popName) return null;
+            return (
+              <div className="pop-card" key={popName.id} onClick={() => handleAction(`${popName.n} ismi anlamı ve kökeni`)}>
+                <button 
+                  className={`card-fav-btn ${isFavorite(popName.id) ? 'active' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); toggleFavorite(popName.id); }}
+                >
+                  {isFavorite(popName.id) ? "❤️" : "🤍"}
+                </button>
+                <div className={`pop-card-img ai-bebek ${popName.g === 'Kız' ? 'ai-kiz' : 'ai-erkek'}`}></div>
+                <div className="pop-card-body">
+                  <div className="pop-gender">{popName.g.toUpperCase()}</div>
+                  <div className="pop-name">{popName.n}</div>
+                  <div className="pop-desc">{popName.desc || popName.m}</div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>
