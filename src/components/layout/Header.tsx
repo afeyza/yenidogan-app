@@ -33,90 +33,110 @@ const Header: React.FC = () => {
     setSubmittedQuery(searchQuery);
   };
 
-  const toggleSearch = () => {
-    if (isSearchOpen) {
-      setSearchQuery('');
-      setSubmittedQuery('');
-    }
-    setIsSearchOpen(!isSearchOpen);
+  const closeSearch = () => {
+    setIsSearchOpen(false);
+    setSearchQuery('');
+    setSubmittedQuery('');
   };
 
   return (
-    <div className="header-outer">
-      <div className="header">
-        {/* DYNAMIC LEFT BUTTON: Menu or Back */}
-        {isHomePage ? (
-          <button className="header-btn menu-btn">☰</button>
-        ) : (
-          <button className="header-btn back-btn" onClick={() => navigate('/')}>
-            ←
-          </button>
-        )}
+    <>
+      <div className="header-outer">
+        <div className="header">
+          {/* LEFT BUTTON */}
+          {isHomePage ? (
+            <button className="header-btn menu-btn">☰</button>
+          ) : (
+            <button className="header-btn back-btn" onClick={() => navigate('/')}>
+              ←
+            </button>
+          )}
 
-        <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-          <div className="logo-icon">🌸</div>
-          <div className="logo-text-group">
-            <span className="logo-text">yenidoğan.net</span>
-            <span className="logo-sub">En güzel başlangıç...</span>
+          <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+            <div className="logo-icon">🌸</div>
+            <div className="logo-text-group">
+              <span className="logo-text">yenidoğan.net</span>
+              <span className="logo-sub">En güzel başlangıç...</span>
+            </div>
           </div>
-        </div>
 
-        {/* INLINE SEARCH BAR */}
-        <div className={`header-search-wrapper ${isSearchOpen ? 'active' : ''}`}>
-          <div className="header-search-inner-relative">
-            {isSearchOpen && (
-              <form onSubmit={handleSearchTrigger} className="header-search-form">
+          {/* SEARCH TRIGGER BUTTON */}
+          <button 
+            className="header-btn search-btn"
+            onClick={() => setIsSearchOpen(true)}
+          >
+            🔍
+          </button>
+        </div>
+      </div>
+
+      {/* SEARCH POPUP / MODAL */}
+      {isSearchOpen && (
+        <div className="search-modal-overlay">
+          <div className="search-modal-content">
+            <div className="search-modal-header">
+              <h3>İsimlerde Ara</h3>
+              <button className="modal-close-btn" onClick={closeSearch}>✕</button>
+            </div>
+            
+            <form onSubmit={handleSearchTrigger} className="modal-search-form">
+              <div style={{ position: 'relative', flex: 1 }}>
+                <span className="search-icon-inside">🔍</span>
                 <input 
                   type="text" 
                   className="header-search-input" 
-                  placeholder="İsim ara..."
+                  placeholder="İsim yazın..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   autoFocus
                 />
-                <button type="submit" className="header-search-submit">Ara</button>
-              </form>
-            )}
-
-            {isSearchOpen && submittedQuery.length > 0 && (
-              <div className="search-results-dropdown-inline">
-                <div style={{ padding: '10px 16px', fontSize: '11px', color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>
-                  "{submittedQuery}" için sonuçlar:
-                </div>
-                {filteredResults.length > 0 ? (
-                  filteredResults.map(result => (
-                    <div 
-                      key={result.id} 
-                      className="search-result-item"
-                      onClick={() => console.log("Seçildi:", result.n)}
-                    >
-                      <div>
-                        <div className="sr-name">{result.n}</div>
-                        <div className="sr-meaning">{result.m}</div>
-                      </div>
-                      <span className={`sr-tag ${result.g === 'Kız' ? 'girl' : 'boy'}`}>
-                        {result.g}
-                      </span>
-                    </div>
-                  ))
-                ) : (
-                  <div className="search-result-item" style={{ cursor: 'default', opacity: 0.7 }}>
-                    <div className="sr-meaning">Eşleşen isim bulunamadı.</div>
-                  </div>
-                )}
               </div>
-            )}
+              <button type="submit" className="header-search-submit">Ara</button>
+            </form>
+
+            <div className="modal-results-area">
+              {submittedQuery.length > 0 ? (
+                <>
+                  <div style={{ padding: '12px 0', fontSize: '12px', color: 'var(--muted)' }}>
+                    "{submittedQuery}" için sonuçlar:
+                  </div>
+                  {filteredResults.length > 0 ? (
+                    <div className="modal-scroll-list">
+                      {filteredResults.map(result => (
+                        <div 
+                          key={result.id} 
+                          className="search-result-item"
+                          onClick={() => {
+                            console.log("Seçildi:", result.n);
+                            closeSearch();
+                          }}
+                        >
+                          <div>
+                            <div className="sr-name">{result.n}</div>
+                            <div className="sr-meaning">{result.m}</div>
+                          </div>
+                          <span className={`sr-tag ${result.g === 'Kız' ? 'girl' : 'boy'}`}>
+                            {result.g}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="empty-search">
+                      😔 Aradığınız isim bulunamadı.
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="search-hint">
+                  Aramanızı yapın, en güzel bebek isimlerini listeleyelim. ✨
+                </div>
+              )}
+            </div>
           </div>
         </div>
-
-        <button 
-          className={`header-btn search-btn ${isSearchOpen ? 'active-close' : ''}`}
-          onClick={toggleSearch}
-        >
-          {isSearchOpen ? '✕' : '🔍'}
-        </button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
