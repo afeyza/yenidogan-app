@@ -391,3 +391,8 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .card-fav-btn.active {
   color: var(--pink);
 }
+
+/* --- OVERRIDES FOR FAVORITE TAGS (WHITE BACKGROUND) --- */
+.fav-item .tag-blue { background: rgba(74,144,217,0.15); color: var(--blue); }
+.fav-item .tag-pink { background: rgba(224,86,123,0.15); color: var(--pink); }
+.fav-item .tag-gold { background: rgba(245,166,35,0.15); color: var(--gold); }

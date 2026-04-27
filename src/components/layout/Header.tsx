@@ -1,8 +1,27 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { namesData } from '../../data/namesData';
 
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Arama filtresi: İsim, anlam veya köken (t3) içinde arama yapar
+  const filteredResults = useMemo(() => {
+    if (searchQuery.trim().length < 2) return [];
+    
+    const query = searchQuery.toLowerCase().trim();
+    return namesData.filter(item => 
+      item.n.toLowerCase().includes(query) || 
+      item.m.toLowerCase().includes(query) ||
+      item.t3.toLowerCase().includes(query)
+    ).slice(0, 6); // Maksimum 6 sonuç gösterelim
+  }, [searchQuery]);
+
+  const handleResultClick = (name: string) => {
+    console.log("Arama sonucuna tıklandı:", name);
+    // Şimdilik sadece tıklama efekti, ilerde detay sayfasına yönlendirebiliriz
+    // setIsSearchOpen(false); // Opsiyonel: seçince arama kapansın mı?
+  };
 
   return (
     <>
@@ -17,7 +36,10 @@ const Header: React.FC = () => {
         </div>
         <button 
           className="header-btn search-btn"
-          onClick={() => setIsSearchOpen(!isSearchOpen)}
+          onClick={() => {
+            setIsSearchOpen(!isSearchOpen);
+            if (!isSearchOpen) setSearchQuery(''); // Açılırken temizle
+          }}
         >
           🔍
         </button>
@@ -33,25 +55,33 @@ const Header: React.FC = () => {
             placeholder="İsim, anlam veya köken ara..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            autoFocus={isSearchOpen}
           />
         </div>
         
-        {searchQuery.length > 0 && (
+        {searchQuery.trim().length >= 2 && (
           <div className="search-results" style={{ display: 'block' }}>
-            <div className="search-result-item">
-              <div>
-                <div className="sr-name">Arya</div>
-                <div className="sr-meaning">Soyluluk, asaleti ifade eder.</div>
+            {filteredResults.length > 0 ? (
+              filteredResults.map(result => (
+                <div 
+                  key={result.id} 
+                  className="search-result-item"
+                  onClick={() => handleResultClick(result.n)}
+                >
+                  <div>
+                    <div className="sr-name">{result.n}</div>
+                    <div className="sr-meaning">{result.m}</div>
+                  </div>
+                  <span className={`sr-tag ${result.g === 'Kız' ? 'girl' : 'boy'}`}>
+                    {result.g}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <div className="search-result-item" style={{ cursor: 'default', opacity: 0.7 }}>
+                <div className="sr-meaning">Eşleşen isim bulunamadı.</div>
               </div>
-              <span className="sr-tag girl">Kız</span>
-            </div>
-            <div className="search-result-item">
-              <div>
-                <div className="sr-name">Aras</div>
-                <div className="sr-meaning">Kalın yün, sahip çıkılan buluntu.</div>
-              </div>
-              <span className="sr-tag boy">Erkek</span>
-            </div>
+            )}
           </div>
         )}
       </div>
