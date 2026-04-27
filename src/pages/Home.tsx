@@ -26,7 +26,7 @@ export const Home = () => {
         <div className="hero-badge">🌟 Bebek İsimleri</div>
         <h1>Bebeğiniz için en <span>doğru ismi</span> bulun</h1>
         <p className="hero-desc">Anlamları, kökenleri ve özellikleriyle kız ve erkek isimlerini keşfedin.</p>
-        <button className="hero-cta" onClick={() => handleAction('İsim bulucu nasıl çalışıyor?')}>İsim bulucuya git →</button>
+        <button className="hero-cta" onClick={() => navigate('/finder')}>İsim bulucuya git →</button>
       </div>
 
       {/* STATS */}
@@ -77,7 +77,7 @@ export const Home = () => {
             <h4>Popüler isimler</h4>
             <p>Keşfet →</p>
           </div>
-          <div className="cat-card" onClick={() => handleAction('İsim bulucu ile isim ara')}>
+          <div className="cat-card" onClick={() => navigate('/finder')}>
             <div className="cat-icon" style={{ background: '#EEE8FF' }}>🔍</div>
             <h4>İsim bulucu</h4>
             <p>Keşfet →</p>
