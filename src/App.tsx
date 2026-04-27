@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { Favorites } from './pages/Favorites'; 
 import { NameFinder } from './pages/NameFinder';
 import { QuranNames } from './pages/QuranNames';
+import { GenderNames } from './pages/GenderNames';
 import { FavoritesProvider } from './context/FavoritesContext';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="favorites" element={<Favorites />} />
             <Route path="finder" element={<NameFinder />} />
             <Route path="quran" element={<QuranNames />} />
+            <Route path="names/:gender" element={<GenderNames />} />
           </Route>
         </Routes>
       </BrowserRouter>

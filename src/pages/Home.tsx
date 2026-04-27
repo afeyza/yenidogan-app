@@ -48,13 +48,13 @@ export const Home = () => {
           <div className="gender-card-photo ai-bebek ai-kiz"></div>
           <h3>Kız isimleri</h3>
           <p>250+ anlamlı ve güzel isim</p>
-          <button className="gender-card-btn" onClick={() => navigate('/finder')}>Kız İsimlerini Gör →</button>
+          <button className="gender-card-btn" onClick={() => navigate('/names/kiz')}>Kız İsimlerini Gör →</button>
         </div>
         <div className="gender-card boy">
           <div className="gender-card-photo ai-bebek ai-erkek"></div>
           <h3>Erkek isimleri</h3>
           <p>350+ modern ve özel erkek ismi</p>
-          <button className="gender-card-btn" onClick={() => navigate('/finder')}>Erkek İsimlerini Gör →</button>
+          <button className="gender-card-btn" onClick={() => navigate('/names/erkek')}>Erkek İsimlerini Gör →</button>
         </div>
       </div>
 
