@@ -105,21 +105,21 @@ export const Home = () => {
         <div className="guide" style={{ width: '100%' }}>
           <div className="guide-header">
             <span>İSİM REHBERİ</span>
-            <a onClick={() => navigate('/finder')}>TÜMÜ</a>
+            <a onClick={() => navigate('/guide')}>TÜMÜ</a>
           </div>
-          <div className="guide-item" onClick={() => navigate('/finder')}>
+          <div className="guide-item" onClick={() => navigate('/guide')}>
             <span>Bebek ismi nasıl seçilir?</span>
             <ChevronRight size={16} />
           </div>
-          <div className="guide-item" onClick={() => navigate('/finder')}>
+          <div className="guide-item" onClick={() => navigate('/guide')}>
             <span>İsimlerin anlamları neden önemlidir?</span>
             <ChevronRight size={16} />
           </div>
-          <div className="guide-item" onClick={() => navigate('/finder')}>
+          <div className="guide-item" onClick={() => navigate('/guide')}>
             <span>Modern öneriler nereden başlar?</span>
             <ChevronRight size={16} />
           </div>
-          <div className="guide-item" onClick={() => navigate('/finder')}>
+          <div className="guide-item" onClick={() => navigate('/guide')}>
             <span>Nadir isimler: nelere dikkat edilmeli?</span>
             <ChevronRight size={16} />
           </div>
