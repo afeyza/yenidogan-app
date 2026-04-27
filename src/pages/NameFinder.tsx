@@ -31,9 +31,6 @@ export const NameFinder = () => {
   return (
     <div className="finder-page" style={{ padding: '24px 16px' }}>
       <div className="fav-header">
-        <Link to="/" style={{display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--purple)', textDecoration: 'none', marginBottom: '16px', fontWeight: 600}}>
-          ← Ana Sayfaya Dön
-        </Link>
         <h2 style={{ fontSize: '28px' }}>🔍 İsim Bulucu</h2>
         <p>Aradığınız kriterlere en uygun ismi keşfedin.</p>
       </div>

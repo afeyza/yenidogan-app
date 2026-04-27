@@ -7,9 +7,6 @@ export const Favorites = () => {
   return (
     <div className="fav-page">
       <div className="fav-header">
-        <Link to="/" style={{display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--purple)', textDecoration: 'none', marginBottom: '16px', fontWeight: 600}}>
-          ← Ana Sayfaya Dön
-        </Link>
         <h2>❤️ Favorilerim</h2>
         <p>{favorites.length} isim kaydedildi</p>
       </div>

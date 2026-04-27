@@ -1,10 +1,15 @@
 import { useState, useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { namesData } from '../../data/namesData';
 
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [submittedQuery, setSubmittedQuery] = useState('');
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
 
   const filteredResults = useMemo(() => {
     if (submittedQuery.trim().length === 0) return [];
@@ -39,8 +44,16 @@ const Header: React.FC = () => {
   return (
     <div className="header-outer">
       <div className="header">
-        <button className="header-btn menu-btn">☰</button>
-        <div className="logo">
+        {/* DYNAMIC LEFT BUTTON: Menu or Back */}
+        {isHomePage ? (
+          <button className="header-btn menu-btn">☰</button>
+        ) : (
+          <button className="header-btn back-btn" onClick={() => navigate('/')}>
+            ←
+          </button>
+        )}
+
+        <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <div className="logo-icon">🌸</div>
           <div className="logo-text-group">
             <span className="logo-text">yenidoğan.net</span>
@@ -65,7 +78,6 @@ const Header: React.FC = () => {
               </form>
             )}
 
-            {/* SEARCH RESULTS - Now anchored specifically to the search input wrapper */}
             {isSearchOpen && submittedQuery.length > 0 && (
               <div className="search-results-dropdown-inline">
                 <div style={{ padding: '10px 16px', fontSize: '11px', color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>

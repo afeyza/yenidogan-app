@@ -15,8 +15,9 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .logo-text{font-size:16px;font-weight:900;color:var(--purple)}
 .logo-sub{font-size:10px;color:var(--muted);display:block;margin-top:-2px}
 .header-btn{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
-.menu-btn{background:var(--purple)}
-.search-btn{background:var(--gold)}
+.menu-btn{background:var(--purple);color:#fff}
+.back-btn{background:var(--purple);color:#fff;font-weight:bold}
+.search-btn{background:var(--gold);color:#fff}
 
 .hero{background:linear-gradient(160deg,#FFF0F5 0%,#EEE8FF 60%,#E8F4FF 100%);padding:28px 20px 32px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;right:-20px;top:-20px;width:140px;height:140px;background:radial-gradient(circle,rgba(107,79,187,0.12) 0%,transparent 70%);border-radius:50%}
