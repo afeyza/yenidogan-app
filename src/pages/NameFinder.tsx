@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { namesData } from '../data/namesData';
 import { useFavorites } from '../context/FavoritesContext';
 
@@ -8,6 +8,8 @@ export const NameFinder = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [genderFilter, setGenderFilter] = useState<'Hepsi' | 'Kız' | 'Erkek'>('Hepsi');
   const [originFilter, setOriginFilter] = useState<string>('Hepsi');
+  const [isOriginOpen, setIsOriginOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const origins = useMemo(() => {
     const allOrigins = namesData.map(item => item.t3);
@@ -27,6 +29,17 @@ export const NameFinder = () => {
     });
   }, [searchTerm, genderFilter, originFilter]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOriginOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <div className="finder-page" style={{ padding: '24px 16px' }}>
       <div className="fav-header" style={{ marginBottom: '32px' }}>
@@ -36,7 +49,7 @@ export const NameFinder = () => {
         </p>
       </div>
 
-      {/* REFINED FILTER CARD */}
+      {/* FILTER CARD */}
       <div className="finder-filters" style={{ 
         background: '#fff', 
         padding: '28px', 
@@ -64,7 +77,7 @@ export const NameFinder = () => {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(140px, 1fr) minmax(140px, 1fr)', gap: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
           <div>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: 800, marginBottom: '10px', color: 'var(--purple)', letterSpacing: '0.5px' }}>CİNSİYET</label>
             <div style={{ display: 'flex', gap: '4px', background: '#f0edfa', padding: '5px', borderRadius: '15px' }}>
@@ -73,7 +86,7 @@ export const NameFinder = () => {
                   key={g}
                   onClick={() => setGenderFilter(g as any)}
                   style={{
-                    flex: 1, padding: '10px', borderRadius: '12px', border: 'none', fontSize: '13px', fontWeight: 700, cursor: 'pointer',
+                    flex: 1, padding: '10px', borderRadius: '12px', border: 'none', fontSize: '12px', fontWeight: 700, cursor: 'pointer',
                     background: genderFilter === g ? '#fff' : 'transparent',
                     boxShadow: genderFilter === g ? '0 4px 10px rgba(107, 79, 187, 0.1)' : 'none',
                     color: genderFilter === g ? 'var(--purple)' : 'var(--muted)',
@@ -85,49 +98,80 @@ export const NameFinder = () => {
               ))}
             </div>
           </div>
-          <div>
+          
+          <div style={{ position: 'relative' }} ref={dropdownRef}>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: 800, marginBottom: '10px', color: 'var(--purple)', letterSpacing: '0.5px' }}>KÖKEN</label>
-            <div style={{ position: 'relative' }}>
-              <select 
-                value={originFilter}
-                onChange={(e) => setOriginFilter(e.target.value)}
-                style={{ 
-                  width: '100%', 
-                  padding: '12px 16px', 
-                  borderRadius: '15px', 
-                  border: '2px solid #f0edfa', 
-                  fontSize: '14px', 
-                  fontWeight: 700,
-                  outline: 'none', 
-                  cursor: 'pointer',
-                  background: '#fff',
-                  color: 'var(--purple)',
-                  appearance: 'none',
-                  WebkitAppearance: 'none',
-                  transition: 'all 0.2s'
-                }}
-                onFocus={(e) => e.target.style.borderColor = 'var(--purple-light)'}
-                onBlur={(e) => e.target.style.borderColor = '#f0edfa'}
-              >
-                {origins.map(o => <option key={o} value={o}>{o}</option>)}
-              </select>
-              <span style={{ 
-                position: 'absolute', 
-                right: '16px', 
-                top: '50%', 
-                transform: 'translateY(-50%)', 
-                pointerEvents: 'none', 
-                fontSize: '12px',
+            <div 
+              onClick={() => setIsOriginOpen(!isOriginOpen)}
+              style={{ 
+                width: '100%', 
+                padding: '12px 16px', 
+                borderRadius: '15px', 
+                border: isOriginOpen ? '2px solid var(--purple-light)' : '2px solid #f0edfa', 
+                fontSize: '14px', 
+                fontWeight: 700,
+                cursor: 'pointer',
+                background: '#fff',
                 color: 'var(--purple)',
-                opacity: 0.6
-              }}>▼</span>
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                transition: 'all 0.2s'
+              }}
+            >
+              <span>{originFilter}</span>
+              <span style={{ fontSize: '10px', opacity: 0.6, transform: isOriginOpen ? 'rotate(180deg)' : 'none', transition: '0.2s' }}>▼</span>
             </div>
+
+            {/* CUSTOM DROPDOWN LIST */}
+            {isOriginOpen && (
+              <div style={{ 
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                right: 0,
+                marginTop: '8px',
+                background: '#fff',
+                borderRadius: '18px',
+                boxShadow: '0 10px 30px rgba(107, 79, 187, 0.2)',
+                border: '1px solid var(--border)',
+                zIndex: 100,
+                maxHeight: '200px',
+                overflowY: 'auto',
+                padding: '8px',
+                animation: 'slideDown 0.2s ease-out'
+              }}>
+                {origins.map(o => (
+                  <div 
+                    key={o}
+                    onClick={() => {
+                      setOriginFilter(o);
+                      setIsOriginOpen(false);
+                    }}
+                    style={{
+                      padding: '10px 14px',
+                      borderRadius: '10px',
+                      fontSize: '13px',
+                      fontWeight: originFilter === o ? 700 : 500,
+                      color: originFilter === o ? 'var(--purple)' : 'var(--text)',
+                      background: originFilter === o ? 'var(--purple-light)' : 'transparent',
+                      cursor: 'pointer',
+                      transition: '0.15s'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = originFilter === o ? 'var(--purple-light)' : '#f8f7ff' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = originFilter === o ? 'var(--purple-light)' : 'transparent' }}
+                  >
+                    {o}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       <div className="section-header" style={{ marginBottom: '16px' }}>
-        <span className="section-title" style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: 800 }}>BULUNAN SONUÇLAR ({filteredNames.length})</span>
+        <span className="section-title" style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: 800, letterSpacing: '0.5px' }}>BULUNAN SONUÇLAR ({filteredNames.length})</span>
       </div>
 
       <div className="fav-list">
@@ -135,28 +179,29 @@ export const NameFinder = () => {
           filteredNames.map((item) => (
             <div className="fav-item" key={item.id} style={{ 
               background: '#fff', 
-              borderRadius: '20px', 
-              padding: '16px', 
+              borderRadius: '24px', 
+              padding: '18px', 
               marginBottom: '16px', 
-              boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+              boxShadow: '0 4px 15px rgba(107, 79, 187, 0.04)',
               display: 'flex',
-              gap: '16px',
-              alignItems: 'center'
+              gap: '18px',
+              alignItems: 'center',
+              border: '1px solid rgba(107, 79, 187, 0.03)'
             }}>
-              <div className={`fav-img ai-bebek ${item.g === 'Kız' ? 'ai-kiz' : 'ai-erkek'}`} style={{ width: '70px', height: '70px', borderRadius: '16px' }}></div>
+              <div className={`fav-img ai-bebek ${item.g === 'Kız' ? 'ai-kiz' : 'ai-erkek'}`} style={{ width: '74px', height: '74px', borderRadius: '18px' }}></div>
               <div className="fav-info">
                 <div className="fav-name-row" style={{ marginBottom: '4px' }}>
-                  <span className="fav-name" style={{ fontSize: '20px', fontWeight: 900 }}>{item.n}</span>
+                  <span className="fav-name" style={{ fontSize: '22px', fontWeight: 900 }}>{item.n}</span>
                   <button 
                     onClick={() => toggleFavorite(item.id)}
-                    style={{ background: 'none', border: 'none', fontSize: '22px', cursor: 'pointer' }}
+                    style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer' }}
                   >
                     {isFavorite(item.id) ? "❤️" : "🤍"}
                   </button>
                 </div>
-                <div className="name-tags" style={{ marginBottom: '10px' }}>
-                  <span className="tag" style={{ background: item.g === 'Kız' ? 'rgba(224,86,123,0.1)' : 'rgba(74,144,217,0.1)', color: item.g === 'Kız' ? 'var(--pink)' : 'var(--blue)', fontSize: '10px', padding: '4px 10px' }}>{item.t1}</span>
-                  <span className="tag" style={{ background: 'rgba(245,166,35,0.1)', color: 'var(--gold)', fontSize: '10px', padding: '4px 10px', marginLeft: '6px' }}>{item.t3}</span>
+                <div className="name-tags" style={{ marginBottom: '12px' }}>
+                  <span className="tag" style={{ background: item.g === 'Kız' ? 'rgba(224,86,123,0.1)' : 'rgba(74,144,217,0.1)', color: item.g === 'Kız' ? 'var(--pink)' : 'var(--blue)', fontSize: '11px', padding: '5px 12px', fontWeight: 700 }}>{item.t1}</span>
+                  <span className="tag" style={{ background: 'rgba(245,166,35,0.1)', color: 'var(--gold)', fontSize: '11px', padding: '5px 12px', fontWeight: 700, marginLeft: '8px' }}>{item.t3}</span>
                 </div>
                 <p className="fav-desc" style={{ fontSize: '12px', color: 'var(--muted)', lineHeight: '1.6' }}>{item.m}</p>
               </div>
