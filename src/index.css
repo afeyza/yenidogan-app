@@ -206,10 +206,42 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 }
 
 .modal-search-form .header-search-input {
+  flex: 1;
   background: transparent;
   border: none;
-  padding: 12px 14px;
+  padding: 12px 14px 12px 38px; /* İkon için sol boşluk */
   font-size: 16px;
+  width: 100%;
+  outline: none;
+}
+
+.search-icon-inside {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.header-search-submit {
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  padding: 0 24px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.25);
+}
+
+.header-search-submit:hover {
+  background: #e69516;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(245, 166, 35, 0.35);
 }
 
 .modal-scroll-list {
