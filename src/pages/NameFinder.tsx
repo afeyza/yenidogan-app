@@ -87,24 +87,41 @@ export const NameFinder = () => {
           </div>
           <div>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: 800, marginBottom: '10px', color: 'var(--purple)', letterSpacing: '0.5px' }}>KÖKEN</label>
-            <select 
-              value={originFilter}
-              onChange={(e) => setOriginFilter(e.target.value)}
-              style={{ 
-                width: '100%', 
-                padding: '12px 16px', 
-                borderRadius: '15px', 
-                border: '2px solid #f0edfa', 
-                fontSize: '14px', 
-                fontWeight: 600,
-                outline: 'none', 
-                cursor: 'pointer',
-                background: '#fff',
-                color: 'var(--text)'
-              }}
-            >
-              {origins.map(o => <option key={o} value={o}>{o}</option>)}
-            </select>
+            <div style={{ position: 'relative' }}>
+              <select 
+                value={originFilter}
+                onChange={(e) => setOriginFilter(e.target.value)}
+                style={{ 
+                  width: '100%', 
+                  padding: '12px 16px', 
+                  borderRadius: '15px', 
+                  border: '2px solid #f0edfa', 
+                  fontSize: '14px', 
+                  fontWeight: 700,
+                  outline: 'none', 
+                  cursor: 'pointer',
+                  background: '#fff',
+                  color: 'var(--purple)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                  transition: 'all 0.2s'
+                }}
+                onFocus={(e) => e.target.style.borderColor = 'var(--purple-light)'}
+                onBlur={(e) => e.target.style.borderColor = '#f0edfa'}
+              >
+                {origins.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+              <span style={{ 
+                position: 'absolute', 
+                right: '16px', 
+                top: '50%', 
+                transform: 'translateY(-50%)', 
+                pointerEvents: 'none', 
+                fontSize: '12px',
+                color: 'var(--purple)',
+                opacity: 0.6
+              }}>▼</span>
+            </div>
           </div>
         </div>
       </div>
