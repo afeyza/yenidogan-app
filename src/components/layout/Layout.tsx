@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
-import BottomNav from './BottomNav';
 
 const Layout: React.FC = () => {
   return (
@@ -9,7 +8,6 @@ const Layout: React.FC = () => {
       <main className="main-content">
         <Outlet /> {/* Burası aktif olan sayfayı (Home, Search vb.) render eder */}
       </main>
-      <BottomNav />
     </div>
   );
 };
