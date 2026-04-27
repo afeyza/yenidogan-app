@@ -320,10 +320,9 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
   .pop-card-body { padding: 14px; }
   .pop-name { font-size: 18px; margin-bottom: 4px; }
   .pop-desc { font-size: 11px; }
-  /* --- Hide mobile bottom nav --- */
-  .bottom-nav { display: none; }
-  /* --- Hide hamburger --- */
-  .menu-btn { display: none; }
+  /* --- Butonları masaüstünde de gösterelim (User talebi) --- */
+  .header-btn { display: flex !important; }
+  .menu-btn, .back-btn { display: flex !important; }
 
   /* --- Hero ortalama --- */
   .hero { text-align: center; padding: 60px 40px; }
