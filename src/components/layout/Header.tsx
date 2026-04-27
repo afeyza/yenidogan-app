@@ -82,7 +82,7 @@ const Header: React.FC = () => {
 
       {/* SEARCH RESULTS - Stays as a dropdown beneath the header */}
       {isSearchOpen && submittedQuery.length > 0 && (
-        <div className="search-results" style={{ display: 'block', position: 'fixed', top: '61px', left: 0, right: 0, z-index: 97, margin: '0 16px', borderRadius: '0 0 16px 16px' }}>
+        <div className="search-results" style={{ display: 'block', position: 'fixed', top: '61px', left: 0, right: 0, zIndex: 97, margin: '0 16px', borderRadius: '0 0 16px 16px' }}>
           <div style={{ padding: '10px 16px', fontSize: '11px', color: 'var(--muted)', borderBottom: '1px solid var(--border)' }}>
             "{submittedQuery}" için sonuçlar:
           </div>
