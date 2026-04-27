@@ -117,39 +117,6 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
 .nav-item.active .nav-label{color:var(--purple)}
 .nav-item.active .nav-icon{filter:none}
 
-/* Search UI Styles */
-.search-container {
-  display: none;
-  padding: 12px 16px;
-  background: #fff;
-  border-bottom: 1px solid var(--border);
-  animation: slideDown 0.2s ease-out;
-  position: sticky;
-  top: 61px; /* Header height */
-  z-index: 98;
-}
-.search-container.active {
-  display: block;
-}
-.search-input-wrapper {
-  position: relative;
-}
-.search-input {
-  width: 100%;
-  padding: 12px 16px 12px 40px;
-  border: 1px solid var(--purple-light);
-  border-radius: 12px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  outline: none;
-  background: #FAF8FF;
-  color: var(--text);
-  transition: border-color 0.2s;
-}
-.search-input:focus {
-  border-color: var(--purple-mid);
-  background: #fff;
-}
 .search-icon-inside {
   position: absolute;
   left: 14px;
@@ -157,6 +124,53 @@ body{font-family:'DM Sans',sans-serif;background:#FAF8FF;color:var(--text);max-w
   transform: translateY(-50%);
   font-size: 16px;
   opacity: 0.5;
+}
+
+/* --- Inline Header Search --- */
+.header-search-wrapper {
+  flex: 0;
+  width: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+}
+.header-search-wrapper.active {
+  flex: 1;
+  width: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.header-search-form {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.header-search-input {
+  flex: 1;
+  border: 1px solid var(--purple-light);
+  background: #FAF8FF;
+  padding: 10px 14px;
+  border-radius: 12px;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+}
+.header-search-submit {
+  background: var(--purple);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.active-close {
+  background: var(--pink-light) !important;
+  color: var(--pink) !important;
 }
 /* Mock Search Results */
 .search-results {
