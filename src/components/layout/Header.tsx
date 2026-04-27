@@ -11,9 +11,7 @@ const Header: React.FC = () => {
     
     const query = submittedQuery.toLowerCase().trim();
     return namesData.filter(item => 
-      item.n.toLowerCase().includes(query) || 
-      item.m.toLowerCase().includes(query) ||
-      item.t3.toLowerCase().includes(query)
+      item.n.toLowerCase().includes(query)
     ).sort((a, b) => {
       const aName = a.n.toLowerCase();
       const bName = b.n.toLowerCase();
