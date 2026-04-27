@@ -5,6 +5,7 @@ import { Favorites } from './pages/Favorites';
 import { NameFinder } from './pages/NameFinder';
 import { QuranNames } from './pages/QuranNames';
 import { GenderNames } from './pages/GenderNames';
+import { PopularNames } from './pages/PopularNames';
 import { FavoritesProvider } from './context/FavoritesContext';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="finder" element={<NameFinder />} />
             <Route path="quran" element={<QuranNames />} />
             <Route path="names/:gender" element={<GenderNames />} />
+            <Route path="popular" element={<PopularNames />} />
           </Route>
         </Routes>
       </BrowserRouter>

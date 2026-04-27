@@ -69,7 +69,7 @@ export const Home = () => {
             <h4>Kur'an'da geçen</h4>
             <p>Keşfet →</p>
           </div>
-          <div className="cat-card" onClick={() => navigate('/finder')}>
+          <div className="cat-card" onClick={() => navigate('/popular')}>
             <div className="cat-icon" style={{ background: '#FFF8E1' }}>⭐</div>
             <h4>Popüler isimler</h4>
             <p>Keşfet →</p>
@@ -152,7 +152,7 @@ export const Home = () => {
       <div className="section">
         <div className="section-header">
           <span className="section-title">Türkiye'de En Popüler İsimler</span>
-          <span className="see-all" onClick={() => navigate('/finder')}>Tümünü Gör →</span>
+          <span className="see-all" onClick={() => navigate('/popular')}>Tümünü Gör →</span>
         </div>
         <div className="popular-scroll">
           {popularNameIds.map(id => {
